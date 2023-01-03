@@ -24,7 +24,7 @@ public class DepositCalculator {
         int depositYearCount;
         int typeDeposit;
         int amount;
-        double fianalAmount;
+        double fianalAmount = 0;
         double yearRate = 0.06;
         Scanner scanner = new Scanner(System.in);
 
@@ -33,8 +33,7 @@ public class DepositCalculator {
         System.out.println("Введите срок вклада в годах:");
         depositYearCount = scanner.nextInt();
         System.out.println("Выберите тип вклада, 1 - вклад с обычным процентом, 2 - вклад с капитализацией:");
-        typeDeposit = scanner.nextInt();
-        fianalAmount = 0;
+        typeDeposit = scanner.nextInt();;
 
         if (typeDeposit == 1) {
             fianalAmount = calculateSimplePercent(amount, yearRate, depositYearCount);
