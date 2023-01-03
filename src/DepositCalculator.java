@@ -1,17 +1,18 @@
 import java.util.Scanner;
 
 public class DepositCalculator {
+
     public static void main(String[] args) {
         new DepositCalculator().forecastDeposit();
     }
 
-    double сalculateComplexPercent(double a, double y, int d) {
-        double pay = a * Math.pow((1 + y / 12), 12 * d);
+    double calculateComplexPercent(double amount, double yearRate, int depositYearCount) {
+        double pay = amount * Math.pow((1 + yearRate / 12), 12 * depositYearCount);
         return round(pay, 2);
     }
 
-    double сalculateSimplePercent(double amount, double yearRate, int depositPeriod) {
-        return round(amount + amount * yearRate * depositPeriod, 2);
+    double calculateSimplePercent(double amount, double yearRate, int depositYearCount) {
+        return round(amount + amount * yearRate * depositYearCount, 2);
     }
 
     double round(double value, int places) {
@@ -20,22 +21,27 @@ public class DepositCalculator {
     }
 
     void forecastDeposit() {
-        int period;
-        int typeContribution;
+        int depositYearCount;
+        int typeDeposit;
+        int amount;
+        double fianalAmount;
+        double yearRate = 0.06;
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Введите сумму вклада в рублях:");
-        int amount = scanner.nextInt();
+        amount = scanner.nextInt();
         System.out.println("Введите срок вклада в годах:");
-        period = scanner.nextInt();
+        depositYearCount = scanner.nextInt();
         System.out.println("Выберите тип вклада, 1 - вклад с обычным процентом, 2 - вклад с капитализацией:");
-        typeContribution = scanner.nextInt();
-        double fianalAmount = 0;
-        if (typeContribution == 1) {
-            fianalAmount = сalculateSimplePercent(amount, 0.06, period);
-        } else if (typeContribution == 2) {
-            fianalAmount = сalculateComplexPercent(amount, 0.06, period);
+        typeDeposit = scanner.nextInt();
+        fianalAmount = 0;
+
+        if (typeDeposit == 1) {
+            fianalAmount = calculateSimplePercent(amount, yearRate, depositYearCount);
+        } else if (typeDeposit == 2) {
+            fianalAmount = calculateComplexPercent(amount, yearRate, depositYearCount);
         }
-        System.out.println("Результат вклада: " + amount + " за " + period + " лет превратятся в " + fianalAmount);
+
+        System.out.println("Результат вклада: " + amount + " за " + depositYearCount + " лет превратятся в " + fianalAmount);
     }
 }
